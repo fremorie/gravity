@@ -10,8 +10,9 @@ import { world } from './world'
 import { ObjectGenerator } from './objectGenerator'
 import { createFloorBody } from './worldBodies'
 import { gui, debugObject } from './debug'
-import { defaultContactMaterial } from './worldMaterials.js'
+import { defaultContactMaterial } from './worldMaterials'
 import { FOG_FAR } from './config'
+import { boxMaterial, sphereMaterial } from './materials'
 
 /**
  * Base
@@ -190,4 +191,14 @@ gui.add(debugObject, 'restitution')
     .name('Restitution')
     .onFinishChange(() => {
         defaultContactMaterial.restitution = debugObject.restitution
+    })
+
+gui.addColor(debugObject, 'sphereColor')
+    .onChange(() => {
+        sphereMaterial.color.set(debugObject.sphereColor)
+    })
+
+gui.addColor(debugObject, 'boxColor')
+    .onChange(() => {
+        boxMaterial.color.set(debugObject.boxColor)
     })

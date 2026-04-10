@@ -1,12 +1,12 @@
 import { Mesh } from 'three'
 import { boxGeometry, planeGeometry, sphereGeometry } from './geometries'
-import { standardMaterial, groundMaterial } from './materials'
+import { sphereMaterial, boxMaterial, groundMaterial } from './materials'
 import { debugObject } from './debug'
 
 export const createSphereMesh = () => {
     const sphere = new Mesh(
         sphereGeometry,
-        standardMaterial,
+        sphereMaterial,
     )
 
     sphere.position.set(0, 1, 0)
@@ -33,7 +33,7 @@ export const createFloorMesh = () => {
 export const createBoxMesh = () => {
     const box = new Mesh(
         boxGeometry,
-        standardMaterial,
+        boxMaterial,
     )
     box.castShadow = true
     box.material.wireframe = debugObject.wireframe

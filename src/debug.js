@@ -8,4 +8,7 @@ export const debugObject = {
     wireframe: false,
     friction: 0.1,
     restitution: 0.7,
+    sphereColor: '#B7BDF7',
+    boxColor: '#FFF8DE',
+    cylinderColor: '#FF7444'
 }
