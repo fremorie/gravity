@@ -1,9 +1,9 @@
-import * as THREE from 'three'
-import { planeGeometry, sphereGeometry } from './geometries'
+import { Mesh } from 'three'
+import { boxGeometry, planeGeometry, sphereGeometry } from './geometries'
 import { standardMaterial } from './materials'
 
 export const createSphereMesh = () => {
-    const sphere = new THREE.Mesh(
+    const sphere = new Mesh(
         sphereGeometry,
         standardMaterial,
     )
@@ -15,7 +15,7 @@ export const createSphereMesh = () => {
 }
 
 export const createFloorMesh = () => {
-    const floor = new THREE.Mesh(
+    const floor = new Mesh(
         planeGeometry,
         standardMaterial,
     )
@@ -23,4 +23,14 @@ export const createFloorMesh = () => {
     floor.rotation.x = - Math.PI * 0.5
 
     return floor
+}
+
+export const createBoxMesh = () => {
+    const box = new Mesh(
+        boxGeometry,
+        standardMaterial,
+    )
+    box.castShadow = true
+
+    return box
 }
