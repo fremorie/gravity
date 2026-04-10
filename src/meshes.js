@@ -24,6 +24,9 @@ export const createFloorMesh = () => {
     floor.receiveShadow = true
     floor.rotation.x = - Math.PI * 0.5
 
+    // HACK against z-fighting when wireframe = true
+    floor.position.y = -0.001
+
     return floor
 }
 
