@@ -1,15 +1,19 @@
 import * as CANNON from 'cannon-es'
+import { PLANE_SIZE } from './config.js'
 
 export const createFloorBody = () => {
-    const floorShape = new CANNON.Plane()
+    const shape = new CANNON.Box(
+        new CANNON.Vec3(
+            PLANE_SIZE / 2,
+            PLANE_SIZE / 2,
+            PLANE_SIZE / 2,
+        )
+    )
     const floorBody = new CANNON.Body({
         mass: 0,
+        position: new CANNON.Vec3(0, -PLANE_SIZE / 2, 0),
+        shape,
     })
-    floorBody.quaternion.setFromAxisAngle(
-        new CANNON.Vec3(-1, 0, 0),
-        Math.PI * 0.5,
-    )
-    floorBody.addShape(floorShape)
 
     return floorBody
 }

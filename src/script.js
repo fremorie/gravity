@@ -11,6 +11,7 @@ import { ObjectGenerator } from './objectGenerator'
 import { createFloorBody } from './worldBodies'
 import { gui, debugObject } from './debug'
 import { defaultContactMaterial } from './worldMaterials.js'
+import { PLANE_SIZE } from './config.js'
 
 /**
  * Base
@@ -93,9 +94,18 @@ const tick = () =>
     // Update physics world
     world.step(1 / 60, deltaTime, 3)
 
-    for (const object of store) {
+    for (let i = 0; i < store.length; i++) {
+        const object = store[i]
+
         object.mesh.position.copy(object.body.position)
         object.mesh.quaternion.copy(object.body.quaternion)
+
+        if (object.mesh.position.y < -10) {
+            scene.remove(object.mesh)
+            world.removeBody(object.body)
+            store.splice(i, 1)
+        }
+
     }
 
     // Update controls
