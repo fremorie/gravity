@@ -1,6 +1,7 @@
 import restart from 'vite-plugin-restart'
 
 export default {
+    base: '/gravity/',
     root: 'src/',
     publicDir: '../static/',
     server:
