@@ -1,0 +1,29 @@
+{
+  "name": "gravity",
+  "version": "1.0.0",
+  "description": "3D gravity playground",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fremorie/gravity.git"
+  },
+  "author": "Daria Borisiak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fremorie/gravity/issues"
+  },
+  "homepage": "https://github.com/fremorie/gravity#readme",
+  "devDependencies": {
+    "vite": "^6.4.2",
+    "vite-plugin-restart": "^2.0.0"
+  },
+  "dependencies": {
+    "cannon-es": "^0.20.0",
+    "lil-gui": "^0.21.0",
+    "three": "^0.183.2"
+  }
+}
