@@ -211,8 +211,16 @@ gui.addColor(debugObject, 'sphereColor')
     .onChange(() => {
         sphereMaterial.color.set(debugObject.sphereColor)
     })
+    .name('Sphere color')
 
 gui.addColor(debugObject, 'boxColor')
     .onChange(() => {
         boxMaterial.color.set(debugObject.boxColor)
     })
+    .name('Box color')
+
+gui.addColor(debugObject, 'cylinderColor')
+    .onChange(() => {
+        boxMaterial.color.set(debugObject.cylinderColor)
+    })
+    .name('Cylinder color')
