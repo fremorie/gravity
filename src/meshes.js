@@ -1,6 +1,6 @@
 import { Mesh } from 'three'
-import { boxGeometry, planeGeometry, sphereGeometry } from './geometries'
-import { sphereMaterial, boxMaterial, groundMaterial } from './materials'
+import { boxGeometry, cylinderGeometry, planeGeometry, sphereGeometry } from './geometries'
+import { sphereMaterial, boxMaterial, groundMaterial, cylinderMaterial } from './materials'
 import { debugObject } from './debug'
 
 export const createSphereMesh = () => {
@@ -39,4 +39,15 @@ export const createBoxMesh = () => {
     box.material.wireframe = debugObject.wireframe
 
     return box
+}
+
+export const createCylinderMesh = () => {
+    const cylinder = new Mesh(
+        cylinderGeometry,
+        cylinderMaterial,
+    )
+    cylinder.castShadow = true
+    cylinder.material.wireframe = debugObject.wireframe
+
+    return cylinder
 }

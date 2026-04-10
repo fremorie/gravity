@@ -13,6 +13,7 @@ export const createFloorBody = () => {
         mass: 0,
         position: new CANNON.Vec3(0, -PLANE_SIZE / 2, 0),
         shape,
+        type: CANNON.Body.STATIC,
     })
 
     return floorBody
@@ -20,6 +21,18 @@ export const createFloorBody = () => {
 
 export const createSphereBody = (radius, material) => {
     const shape = new CANNON.Sphere(radius)
+    const body = new CANNON.Body({
+        mass: 1,
+        position: new CANNON.Vec3(0, 3, 0),
+        shape,
+        material,
+    })
+
+    return body
+}
+
+export const createCylinderBody = (radius, material) => {
+    const shape = new CANNON.Cylinder(radius, radius, radius * 2, 20)
     const body = new CANNON.Body({
         mass: 1,
         position: new CANNON.Vec3(0, 3, 0),

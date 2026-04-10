@@ -5,6 +5,7 @@ export const debugObject = {
     reset: () => {},
     createSphere: () => {},
     createBox: () => {},
+    createCylinder: () => {},
     wireframe: false,
     friction: 0.1,
     restitution: 0.7,

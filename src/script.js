@@ -157,11 +157,25 @@ debugObject.createBox = () => {
     })
 }
 
+debugObject.createCylinder = () => {
+    objectGenerator.createCylinder({
+        radius: Math.random() / 2,
+        position: {
+            x: (Math.random() - 0.5) * 3,
+            y: 3,
+            z: (Math.random() - 0.5) * 3
+        },
+    })
+}
+
 gui.add(debugObject, 'createSphere')
     .name('Create sphere')
 
 gui.add(debugObject, 'createBox')
     .name('Create box')
+
+gui.add(debugObject, 'createCylinder')
+    .name('Create cylinder')
 
 gui.add(debugObject, 'reset')
     .name('Reset')

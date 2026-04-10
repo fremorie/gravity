@@ -1,5 +1,5 @@
-import { createBoxMesh, createSphereMesh } from './meshes'
-import { createBoxBody, createSphereBody } from './worldBodies'
+import { createBoxMesh, createCylinderMesh, createSphereMesh } from './meshes'
+import { createBoxBody, createCylinderBody, createSphereBody } from './worldBodies'
 import { defaultMaterial } from './worldMaterials'
 
 export class ObjectGenerator {
@@ -62,5 +62,25 @@ export class ObjectGenerator {
             mesh,
             body,
         })
+    }
+
+    createCylinder({radius, position}) {
+        // Three.js mesh
+        const mesh = createCylinderMesh()
+        mesh.scale.setScalar(radius)
+        mesh.position.copy(position)
+        this.scene.add(mesh)
+
+        // Cannon.js body
+        const body = createCylinderBody(radius, defaultMaterial)
+        body.position.copy(position)
+        this.world.addBody(body)
+
+        // Save in objects to update
+        this.store.push({
+            mesh,
+            body,
+        })
+
     }
 }
