@@ -1,4 +1,5 @@
 import * as CANNON from 'cannon-es'
+import { debugObject } from './debug'
 
 export const defaultMaterial = new CANNON.Material('default')
 
@@ -6,7 +7,7 @@ export const defaultContactMaterial = new CANNON.ContactMaterial(
     defaultMaterial,
     defaultMaterial,
     {
-        friction: 0.1,
-        restitution: 0.7,
+        friction: debugObject.friction,
+        restitution: debugObject.restitution,
     }
 )

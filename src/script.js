@@ -10,6 +10,7 @@ import { world } from './world'
 import { ObjectGenerator } from './objectGenerator'
 import { createFloorBody } from './worldBodies'
 import { gui, debugObject } from './debug'
+import { defaultContactMaterial } from './worldMaterials.js'
 
 /**
  * Base
@@ -142,11 +143,38 @@ debugObject.createBox = () => {
     })
 }
 
-gui.add(debugObject, 'createSphere').name('Create sphere')
-gui.add(debugObject, 'createBox').name('Create box')
-gui.add(debugObject, 'reset').name('Reset')
-gui.add(debugObject, 'wireframe').name('Wireframe').onChange(() => {
-    for (const object of store) {
-        object.mesh.material.wireframe = debugObject.wireframe
-    }
-})
+gui.add(debugObject, 'createSphere')
+    .name('Create sphere')
+
+gui.add(debugObject, 'createBox')
+    .name('Create box')
+
+gui.add(debugObject, 'reset')
+    .name('Reset')
+
+gui.add(debugObject, 'wireframe')
+    .name('Wireframe')
+    .onChange(() => {
+        for (const object of store) {
+            object.mesh.material.wireframe = debugObject.wireframe
+        }
+    })
+
+gui.add(debugObject, 'friction')
+    .min(0)
+    .max(1)
+    .step(0.01)
+    .name('Friction')
+    .onFinishChange(() => {
+        defaultContactMaterial.friction = debugObject.friction
+        console.log(world.defaultContactMaterial)
+    })
+
+gui.add(debugObject, 'restitution')
+    .min(0)
+    .max(1)
+    .step(0.01)
+    .name('Restitution')
+    .onFinishChange(() => {
+        defaultContactMaterial.restitution = debugObject.restitution
+    })

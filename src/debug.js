@@ -6,4 +6,6 @@ export const debugObject = {
     createSphere: () => {},
     createBox: () => {},
     wireframe: false,
+    friction: 0.1,
+    restitution: 0.7,
 }
