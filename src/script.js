@@ -1,4 +1,4 @@
-import { Scene } from 'three'
+import { Scene, Clock } from 'three'
 import { OrbitControls } from 'three/addons'
 
 import { createFloorMesh } from './meshes'
@@ -6,7 +6,6 @@ import { ambientLight, directionalLight } from './lights'
 import { handleResize } from './resize'
 import { createCamera } from './camera'
 import { createRenderer } from './renderer'
-import { animateScene } from './animation'
 import { world } from './world'
 import { ObjectGenerator } from './objectGenerator'
 import { createFloorBody } from './worldBodies'
@@ -104,9 +103,31 @@ const renderer = createRenderer({
 /**
  * Animate
  */
-animateScene({
-    controls,
-    renderer,
-    scene,
-    camera,
-})
+const clock = new Clock()
+let oldElapsedTime = 0
+
+const tick = () =>
+{
+    const elapsedTime = clock.getElapsedTime()
+    const deltaTime = elapsedTime - oldElapsedTime
+    oldElapsedTime = elapsedTime
+
+    // Update physics world
+    world.step(1 / 60, deltaTime, 3)
+
+    for (const object of store) {
+        object.mesh.position.copy(object.body.position)
+        object.mesh.quaternion.copy(object.body.quaternion)
+    }
+
+    // Update controls
+    controls.update()
+
+    // Render
+    renderer.render(scene, camera)
+
+    // Call tick again on the next frame
+    window.requestAnimationFrame(tick)
+}
+
+tick()
