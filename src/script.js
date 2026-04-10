@@ -9,6 +9,7 @@ import { createRenderer } from './renderer'
 import { world } from './world'
 import { ObjectGenerator } from './objectGenerator'
 import { createFloorBody } from './worldBodies'
+import { gui, debugObject } from './debug'
 
 /**
  * Base
@@ -23,7 +24,26 @@ const objectGenerator = new ObjectGenerator({
     store,
 })
 
-for (let i = 0; i < 10; i++) {
+/**
+ * Debug
+ */
+debugObject.reset = () => {
+    objectGenerator.reset()
+    console.log({world, thisWorld: objectGenerator.world})
+}
+
+debugObject.createSphere = () => {
+    objectGenerator.createSphere({
+        radius: Math.random() * 0.5,
+        position: {
+            x: (Math.random() - 0.5) * 3,
+            y: 3,
+            z: (Math.random() - 0.5) * 3
+        },
+    })
+}
+
+debugObject.createBox = () => {
     objectGenerator.createBox({
         dimensions: {
             width: Math.random(),
@@ -31,21 +51,16 @@ for (let i = 0; i < 10; i++) {
             depth: Math.random(),
         },
         position: {
-            x: Math.random(),
-            y: Math.random(),
-            z: Math.random(),
-        }
-    })
-
-    objectGenerator.createSphere({
-        radius: Math.random(),
-        position: {
-            x: Math.random(),
-            y: Math.random(),
-            z: Math.random(),
-        }
+            x: (Math.random() - 0.5) * 3,
+            y: 3,
+            z: (Math.random() - 0.5) * 3
+        },
     })
 }
+
+gui.add(debugObject, 'createSphere').name('Create sphere')
+gui.add(debugObject, 'createBox').name('Create box')
+gui.add(debugObject, 'reset').name('Reset')
 
 /**
  * Floor
