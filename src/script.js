@@ -1,4 +1,4 @@
-import { Scene, Clock } from 'three'
+import { Scene, Clock, GridHelper } from 'three'
 import { OrbitControls } from 'three/addons'
 
 import { createFloorMesh } from './meshes'
@@ -23,44 +23,6 @@ const objectGenerator = new ObjectGenerator({
     world,
     store,
 })
-
-/**
- * Debug
- */
-debugObject.reset = () => {
-    objectGenerator.reset()
-    console.log({world, thisWorld: objectGenerator.world})
-}
-
-debugObject.createSphere = () => {
-    objectGenerator.createSphere({
-        radius: Math.random() * 0.5,
-        position: {
-            x: (Math.random() - 0.5) * 3,
-            y: 3,
-            z: (Math.random() - 0.5) * 3
-        },
-    })
-}
-
-debugObject.createBox = () => {
-    objectGenerator.createBox({
-        dimensions: {
-            width: Math.random(),
-            height: Math.random(),
-            depth: Math.random(),
-        },
-        position: {
-            x: (Math.random() - 0.5) * 3,
-            y: 3,
-            z: (Math.random() - 0.5) * 3
-        },
-    })
-}
-
-gui.add(debugObject, 'createSphere').name('Create sphere')
-gui.add(debugObject, 'createBox').name('Create box')
-gui.add(debugObject, 'reset').name('Reset')
 
 /**
  * Floor
@@ -146,3 +108,45 @@ const tick = () =>
 }
 
 tick()
+
+/**
+ * Debug
+ */
+debugObject.reset = () => {
+    objectGenerator.reset()
+}
+
+debugObject.createSphere = () => {
+    objectGenerator.createSphere({
+        radius: Math.random() * 0.5,
+        position: {
+            x: (Math.random() - 0.5) * 3,
+            y: 3,
+            z: (Math.random() - 0.5) * 3
+        },
+    })
+}
+
+debugObject.createBox = () => {
+    objectGenerator.createBox({
+        dimensions: {
+            width: Math.random(),
+            height: Math.random(),
+            depth: Math.random(),
+        },
+        position: {
+            x: (Math.random() - 0.5) * 3,
+            y: 3,
+            z: (Math.random() - 0.5) * 3
+        },
+    })
+}
+
+gui.add(debugObject, 'createSphere').name('Create sphere')
+gui.add(debugObject, 'createBox').name('Create box')
+gui.add(debugObject, 'reset').name('Reset')
+gui.add(debugObject, 'wireframe').name('Wireframe').onChange(() => {
+    for (const object of store) {
+        object.mesh.material.wireframe = debugObject.wireframe
+    }
+})
