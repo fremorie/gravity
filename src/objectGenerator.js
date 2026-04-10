@@ -13,6 +13,18 @@ export class ObjectGenerator {
         this.store.splice(0, this.store.length)
     }
 
+    reset() {
+        for (const object of this.store) {
+            // Clear world
+            this.world.removeBody(object.body)
+
+            // Clear scene
+            this.scene.remove(object.mesh)
+        }
+
+        this.resetStore()
+    }
+
     createBox({dimensions, position}) {
         // Three.js mesh
         const mesh = createBoxMesh()
