@@ -1,4 +1,4 @@
-import { Scene, Clock, GridHelper } from 'three'
+import { Scene, Clock, Fog } from 'three'
 import { OrbitControls } from 'three/addons'
 
 import { createFloorMesh } from './meshes'
@@ -11,13 +11,14 @@ import { ObjectGenerator } from './objectGenerator'
 import { createFloorBody } from './worldBodies'
 import { gui, debugObject } from './debug'
 import { defaultContactMaterial } from './worldMaterials.js'
-import { PLANE_SIZE } from './config.js'
+import { FOG_FAR } from './config'
 
 /**
  * Base
  */
 const canvas = document.querySelector('canvas.webgl')
 const scene = new Scene()
+scene.fog = new Fog(0x000000, 10, FOG_FAR)
 
 const store = []
 const objectGenerator = new ObjectGenerator({
@@ -100,7 +101,9 @@ const tick = () =>
         object.mesh.position.copy(object.body.position)
         object.mesh.quaternion.copy(object.body.quaternion)
 
-        if (object.mesh.position.y < -10) {
+        // Remove the object if it's no longer visible
+        // so that it doesn't fall down for all eternity
+        if (object.mesh.position.y < -FOG_FAR) {
             scene.remove(object.mesh)
             world.removeBody(object.body)
             store.splice(i, 1)
